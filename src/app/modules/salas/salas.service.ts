@@ -15,62 +15,31 @@ export class SalasService {
   }
 
   List(): Observable<any> {
-    return this.http.get(this.serverUrl + "salas"  + "/list");
+    return this.http.get(this.serverUrl + "sala"  + "/list");
   }
 
-  create(objeTosend): Observable<any> {
-    let body = {
-      query: `
-      mutation {
-        createComercio (comercio: {
-            id: "${objeTosend.id}"
-            name: "${objeTosend.name}",
-            location: "${objeTosend.location}",
-            description: "${objeTosend.description}",
-            lat: "${objeTosend.lat}",
-            lng: "${objeTosend.lng}",
-        }) {
-           name
-        }
+  create(objeTosend): Observable<any> {   
+    let objSala = {
+      nombre :  objeTosend.nombre,     
+      formato :  {
+        id :  objeTosend.formato,
       }
-      `,
-    };
+    }
+    let body = objSala;
     let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.post(this.serverUrl, body, { headers: headers });
+    let ruta = this.serverUrl   +  "sala/new" ;
+    return this.http.post( ruta, body, { headers: headers });
   }
 
   update(objeTosend): Observable<any> {
-    let body = {
-      query: `
-      mutation {
-        updateComercio (comercio: {
-            _id: "${objeTosend._id}",
-            id: "${objeTosend.id}",
-            name: "${objeTosend.name}",
-            location: "${objeTosend.location}",
-            description: "${objeTosend.description}",
-            lat: "${objeTosend.lat}",
-            lng: "${objeTosend.lng}",
-        }) {
-           name
-        }
-      }
-      `,
+    let body = { 
     };
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.post(this.serverUrl, body, { headers: headers });
   }
 
   delete(id): Observable<any> {
-    let body = {
-      query: `
-        mutation {
-          deleteComercio(comercio: {_id: "${id}"}) {
-             description
-          }
-        }
-        `,
-    };
+    let body = { };
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.post(this.serverUrl, body, { headers: headers });
   }

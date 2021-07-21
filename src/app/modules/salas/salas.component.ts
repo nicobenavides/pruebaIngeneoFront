@@ -13,6 +13,8 @@ import Swal from "sweetalert2";
 export class SalasComponent implements OnInit {
   public userForm: FormGroup;
   listado: any = [];
+  listadoFormatos: any = [  {id: 1,  nombre: "2D"} , {id: 2,  nombre: "3D"},  {id: 3,  nombre: "3D MAX"}   ]
+  
 
   public lShowBtnActualizar: Boolean = true;
   public lShowBtnAdicionar: Boolean = true;
@@ -59,22 +61,14 @@ export class SalasComponent implements OnInit {
     this.loadListado(this.paramsFetchInfo);
 
     this.userForm = new FormGroup({
-      _id: new FormControl("", [Validators.maxLength(50)]),
-      id: new FormControl("", [Validators.required, Validators.maxLength(50)]),
-      name: new FormControl("", [
+      id: new FormControl("", [Validators.maxLength(50)]),
+      nombre: new FormControl("", [
         Validators.required,
         Validators.maxLength(50),
       ]),
-      location: new FormControl("", [
-        Validators.required,
+      formato: new FormControl("", [
         Validators.maxLength(50),
       ]),
-      description: new FormControl("", [
-        Validators.required,
-        Validators.maxLength(50),
-      ]),
-      lat: new FormControl("", [Validators.required, Validators.maxLength(50)]),
-      lng: new FormControl("", [Validators.required, Validators.maxLength(50)]),
     });
   }
 
