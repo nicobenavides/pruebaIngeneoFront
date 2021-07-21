@@ -1,0 +1,129 @@
+<!--CONTENIDO DE ACTIONS-->
+<mat-card-actions fxLayout="row" fxLayoutAlign="end center" style="margin-right: 10px">
+  <button mat-raised-button (click)="adicionar()" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center"
+    fxFlex="22">
+    <mat-icon>add_circle_outline</mat-icon>
+    Adicion
+  </button>
+</mat-card-actions>
+
+<mat-progress-bar mode="indeterminate" *ngIf="IsWait"></mat-progress-bar>
+
+<!--CARD: DATOS-->
+<div class="container" style="overflow: hidden">
+  <mat-card-content class="window-dashboard-card-content contentprincipal" *ngIf="lShowPanelDatos">
+    <mat-toolbar color="primary">
+      <mat-icon matPrefix>account_balance</mat-icon>
+      <span>{{ etiquetaNombreModulo }}</span>
+      <span class="example-spacer"></span>
+
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
+        (click)="cancelar()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-card-header>
+      <mat-card-title> </mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="userForm" autocomplete="off" novalidate>
+      <mat-card class="cardcontent">
+        <mat-card-title fxLayoutAlign="center">
+          <label>Datos de {{ etiquetaNombreModulo }}</label>
+        </mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="center">
+          <div *ngIf="false">
+            <mat-form-field>
+              <input matInput formControlName="id" id="id" placeholder="_" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxFlex fxLayoutAlign="space-between center">
+            <mat-form-field fxFlex>
+              <mat-icon matPrefix>edit</mat-icon>
+              <input matInput formControlName="nombre" id="nombre" placeholder="Nombre de la Sucursal" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxFlex fxLayoutAlign="space-between center">
+            <mat-form-field fxFlex>
+              <mat-icon matPrefix>room</mat-icon>
+              <input matInput formControlName="direccion" id="location" placeholder="Direccion" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxFlex fxLayoutAlign="space-between center">
+            <mat-form-field appearance="fill">
+              <mat-label>Ciudad</mat-label>
+              <mat-select formControlName="ciudad">
+                <mat-option *ngFor="let ciudad of listadoCiudades" [value]="ciudad.id">
+                  {{ciudad.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Empleados</mat-label>
+              <mat-select formControlName="administrador">
+                <mat-option *ngFor="let empleado of listadoEmpleados" [value]="empleado.id">
+                  {{empleado.apellido}}  -  {{empleado.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+          </div>
+
+
+
+         
+    
+        </mat-card-content>
+        
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+          <button mat-raised-button (click)="guardar()" color="primary" [disabled]="!userForm.valid"
+            *ngIf="lShowBtnAdicionar" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxFlex="80">
+            <mat-icon>person_add</mat-icon>
+            Adicionar
+          </button>
+          <button mat-raised-button fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxFlex="80"
+            [disabled]="!userForm.valid" *ngIf="lShowBtnActualizar" (click)="actualizar()" color="primary">
+            <mat-icon>mode_edit</mat-icon>
+            Actualizar
+          </button>
+          <button mat-raised-button fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxFlex="80"
+            (click)="eliminar()" *ngIf="lShowBtnEliminar">
+            <mat-icon>more_vert</mat-icon>
+            Eliminar
+          </button>
+          <button mat-raised-button (click)="cancelar()" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center"
+            fxFlex="80" color="warn">
+            <mat-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </mat-card-content>
+
+  <!--CARD: LISTADO -->
+  <mat-card-content class="window-dashboard-card-content" *ngIf="lShowPanelListado" style="overflow-block: hidden">
+    <mat-toolbar color="primary">
+      <mat-icon matPrefix>account_balance</mat-icon>
+      <span>{{ etiquetaListado }}</span>
+      <span class="example-spacer"></span>
+      <mat-icon>info</mat-icon>
+    </mat-toolbar>
+
+    <mat-grid-list cols="3" rowHeight="320px">
+      <mat-grid-tile *ngFor="let sucursal of listado" style="overflow-x: hidden">
+        <mat-card class="dashboard-card">
+          <img mat-card-image src="./assets/comercio.png" alt="producto" height="150px; " class="cssForCrudListImg" />
+          <mat-card-content class="dashboard-card-content">
+            <h5>{{ sucursal.nombre }}</h5>
+            <br />
+            <div>{{ sucursal.direccion }}</div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</div>
