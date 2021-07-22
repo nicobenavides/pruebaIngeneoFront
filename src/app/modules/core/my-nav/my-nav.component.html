@@ -1,0 +1,36 @@
+<mat-toolbar class="matToolbarCss">
+  <mat-toolbar-row>
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" style="color: white">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span style="padding: 3px; color: white">Ingeneo WEB APP</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar style="margin-top: 25px">
+      <img class="cssLogoSmall" src="{{ urlLogo }}" alt="logo" style="float: left"/>
+    </mat-toolbar>
+    <mat-list style="margin-left: 20px; margin-right: 20px; margin-top: 25px;">
+      <mat-list-item routerLink="./sucursal" [routerLinkActive]="['is-active']" (click)="mostrarRouter()">
+        <mat-icon class="menuIcon">account_balance</mat-icon>        
+        Admin. Sucursales
+      </mat-list-item>
+      <mat-list-item routerLink="./salas" [routerLinkActive]="['is-active']" (click)="mostrarRouter()">
+        <mat-icon class="menuIcon">account_balance</mat-icon>
+        Admin. Salas
+      </mat-list-item>
+      <mat-list-item (click)="logout()">
+        <mat-icon class="menuIcon">mode_edit</mat-icon>
+        Salir
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="container"></div>
+    <router-outlet *ngIf="MostrarRouter"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
